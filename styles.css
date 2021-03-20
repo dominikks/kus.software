@@ -52,12 +52,16 @@ main.main-page {
   right: 0;
   overflow: hidden;
 }
+.description {
+  max-width: 37ch;
+}
 .socials {
   margin: 0 auto;
 }
 .socials {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .socials svg,
 .socials img {
@@ -87,11 +91,12 @@ footer {
   font-size: 18px;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 footer > div {
   padding: 0 1rem;
   margin-bottom: 1rem;
 }
-footer > div:not(:last-child) {
-  border-right: 1px solid var(--text-color);
+footer a {
+  white-space: nowrap;
 }
