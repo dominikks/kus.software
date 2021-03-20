@@ -73,9 +73,12 @@ a:hover {
   fill: var(--text-color);
 }
 .socials a {
+  line-height: 1;
   margin: 0 0.5rem;
   border-bottom: 1px solid transparent;
-  text-decoration-color: var(--primary-color);
+}
+.socials a:hover {
+  border-bottom-color: var(--primary-color);
 }
 
 .legal-page {
