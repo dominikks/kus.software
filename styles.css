@@ -31,7 +31,7 @@ a:hover {
   text-decoration: underline;
 }
 
-main.main-page {
+.main-page main {
   position: relative;
   z-index: 1;
   height: 100vh;
@@ -78,13 +78,16 @@ main.main-page {
   text-decoration-color: var(--primary-color);
 }
 
-main.legal-page {
+.legal-page {
   margin: 0 auto;
   padding: 3rem 1rem;
   max-width: 80ch;
 }
-.small-text {
-  font-size: 0.5em;
+.legal-page h1 {
+  margin-bottom: 0;
+}
+.legal-page header {
+  margin: 48px 0;
 }
 
 footer {
