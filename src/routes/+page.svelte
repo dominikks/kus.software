@@ -6,7 +6,7 @@
   <div class="description">
     <h1>Dominik Kus</h1>
     <p>
-      I am a <span class="bold">Computer Scientist</span> and Software Engineer based in Germany.
+      I am a <span class="bold">Software Consultant</span> and Computer Scientist based in Germany.
     </p>
     <div class="socials">
       <a
