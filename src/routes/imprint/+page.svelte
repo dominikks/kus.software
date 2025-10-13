@@ -1,7 +1,11 @@
+<script>
+  import { resolve } from '$app/paths';
+</script>
+
 <div class="wrapper">
   <main>
     <div class="back-button">
-      <a href="..">← Back to main page</a>
+      <a href={resolve('/')}>← Back to main page</a>
     </div>
 
     <h1>Imprint</h1>

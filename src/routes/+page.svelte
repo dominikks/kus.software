@@ -1,3 +1,7 @@
+<script>
+  import { resolve } from '$app/paths';
+</script>
+
 <main>
   <div class="profile">
     <img alt="Profile photograph" src="/profile.jpg" />
@@ -90,7 +94,7 @@
 </main>
 
 <footer>
-  <a href="/imprint">Imprint</a>
+  <a href={resolve('/imprint')}>Imprint</a>
 </footer>
 
 <style lang="scss">
