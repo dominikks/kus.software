@@ -34,6 +34,6 @@ For me it was a genuine Wow moment, and I think **maintaining side projects just
 
 <p class="muted">
   <em>Note:</em> This article was originally written during my employment at
-  <a href="https://tngtech.com">TNG</a> and is republished here with permission. The opinions
+  <a href="https://www.tngtech.com">TNG</a> and is republished here with permission. The opinions
   are my own and TNG does not endorse this publication.
 </p>

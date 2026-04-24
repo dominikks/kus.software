@@ -1,15 +1,29 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
   import Footer from '$lib/components/Footer.svelte';
-  import ProfileSection from '$lib/components/ProfileSection.svelte';
+
+  import '$lib/style/blog.scss';
 </script>
 
-<ProfileSection />
-<hr />
+<nav class="top-nav">
+  <a class="back-link" href={resolve('/')}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    INDEX
+  </a>
+</nav>
 
-<main class="blog-page">
-  <a class="back-link" href={resolve('/')}>Back to homepage</a>
-
+<main>
   <article class="blog-post">
     <slot />
   </article>
@@ -18,61 +32,42 @@
 <Footer />
 
 <style lang="scss">
-  .blog-page {
-    margin: 0 auto;
-    max-width: 720px;
-    padding: 48px 20px 64px;
+  @use '$lib/style/variables' as *;
+
+  .top-nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    padding: 24px;
+
+    background-color: rgba(252, 252, 251, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 1;
+
+    @media (min-width: $breakpoint-mobile) {
+      padding: 24px 40px;
+    }
   }
 
   .back-link {
-    color: var(--muted-color);
-    text-decoration: none;
-    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
 
     &:hover {
-      color: var(--primary-color);
-    }
-  }
-
-  .blog-post {
-    :global(h1),
-    :global(h2),
-    :global(h3) {
-      color: var(--primary-color);
-      line-height: 1.2;
-      margin-bottom: 16px;
+      color: var(--text-main);
     }
 
-    :global(h1) {
-      font-size: 40px;
-    }
-
-    :global(p),
-    :global(li) {
-      font-size: 20px;
-      line-height: 1.7;
-      margin-bottom: 16px;
-    }
-
-    :global(a) {
-      text-decoration: underline;
-      text-underline-offset: 0.18em;
-    }
-
-    :global(img) {
-      display: block;
-      height: auto;
-      margin: 32px 0;
-      max-width: 100%;
-    }
-
-    :global(code) {
-      font-size: 0.9em;
-    }
-
-    :global(.muted) {
-      color: var(--muted-color);
-      font-size: 16px;
+    svg {
+      width: 16px;
+      height: 16px;
     }
   }
 </style>

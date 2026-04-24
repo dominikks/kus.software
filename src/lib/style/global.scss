@@ -12,11 +12,23 @@
     'Helvetica Neue',
     sans-serif;
 
-  --primary-color: #0873e8;
-  --text-color: #4a4a4a;
-  --muted-color: #6f7f92;
+  --background: #fcfcfb;
+  --surface: #f9f9f8;
+  --text-main: #1a1c1c;
+  --text-muted: #6c7070;
+  --border: #e5e1da;
+  --primary-color: #1a1c1c;
+  --content-width: 680px;
 
-  color: var(--text-color);
+  color: var(--text-main);
+  background-color: var(--background);
+  line-height: 1.6;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 button,
@@ -25,25 +37,36 @@ input {
 }
 
 a {
-  color: var(--text-color);
+  color: var(--text-main);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: var(--text-muted);
+  }
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 hr {
-  height: 2px;
+  height: 1px;
+  max-width: 64px;
   border: 0;
-  background-color: color-mix(in srgb, var(--muted-color) 30%, white);
+  background-color: var(--border);
+  margin: 24px auto;
 }
 
 main {
-  min-height: 100vh;
+  flex-grow: 1;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 40px 24px;
+  box-sizing: border-box;
 }
 
 section {
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0 16px 32px;
+  margin-bottom: 64px;
 }
