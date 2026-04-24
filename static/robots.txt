@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kus.software/sitemap.xml

@@ -30,3 +30,12 @@ a {
 .bold {
   font-weight: bold;
 }
+
+hr {
+  max-width: 100px;
+  margin: 0 auto;
+  height: 2px;
+
+  background-color: var(--text-color);
+  border: 0;
+}
