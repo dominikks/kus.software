@@ -14,6 +14,7 @@
 
   --primary-color: #0873e8;
   --text-color: #4a4a4a;
+  --muted-color: #6f7f92;
 
   color: var(--text-color);
 }
@@ -32,10 +33,17 @@ a {
 }
 
 hr {
-  max-width: 100px;
-  margin: 0 auto;
   height: 2px;
-
-  background-color: var(--text-color);
   border: 0;
+  background-color: color-mix(in srgb, var(--muted-color) 30%, white);
+}
+
+main {
+  min-height: 100vh;
+}
+
+section {
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 0 16px 32px;
 }

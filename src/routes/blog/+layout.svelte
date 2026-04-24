@@ -1,12 +1,17 @@
+<script lang="ts">
+  import Footer from '$lib/components/Footer.svelte';
+</script>
+
 <main class="blog-post">
   <slot />
 </main>
+
+<Footer />
 
 <style lang="scss">
   .blog-post {
     margin: 0 auto;
     max-width: 720px;
-    min-height: 100vh;
     padding: 48px 20px 64px;
 
     :global(h1),
@@ -25,6 +30,7 @@
     :global(li) {
       font-size: 20px;
       line-height: 1.7;
+      margin-bottom: 16px;
     }
 
     :global(a) {

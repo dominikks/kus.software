@@ -1,0 +1,33 @@
+---
+title: Agentic Coding On Your Phone Is Actually Good(?!)
+date: 2026-04-24
+updated: 2026-04-24
+description: How I discovered that GitHub Copilot on mobile is amazing
+published: true
+---
+
+<script lang="ts">
+    import Image from './mobile-coding-on-train.jpg';
+    export const ogImage = Image;
+</script>
+
+# Agentic Coding On Your Phone Is Actually Good(?!)
+
+<img src={Image} alt="A person working on pull requests on their phone from a train with sheep outside the window" />
+
+I had (another) **"Wow" moment with AI** at the start of the year.
+I found myself bored on a train to Cork and decided to give the **GitHub Copilot agent on my phone** a try.
+I didn't expect to be very productive — or, in fact, get anything done — since working on a phone has never been a positive experience for me.
+But I was quickly blown away by how good the results were and how enjoyable the whole thing was.
+
+I started by letting Copilot do some simple dependency upgrades, but quickly moved on to more involved tasks:
+Setting up Dependabot, improving the CI setup, writing tests for previously untested code (to give me confidence for future Dependabot updates), and tackling some major dependency upgrades I had been putting off that required dealing with breaking changes.
+I found myself running multiple tasks in parallel — constantly either reviewing the AI's code (which admittedly would have been nicer on a big screen), giving Copilot instructions for changes via PR comments, or dispatching new tasks.
+
+By the end of the train ride, I had **merged 10+ PRs and made some significant progress** on my side project, all without having typed a single line of code myself.
+I also had **a lot of fun** doing it.
+It required no preparation (like bringing a laptop on my weekend trip) and no commitment (I could just put the phone down and continue another time).
+
+This blog post is **mostly an invitation**:
+If you have some time on your hands while travelling and want to make some progress on your side project, give GitHub Copilot agents on your phone a try!
+For me it was a genuine Wow moment, and I think **maintaining side projects just became significantly easier**.

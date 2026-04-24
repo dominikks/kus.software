@@ -27,7 +27,7 @@ type MarkdownModule = {
 };
 
 // Load all blog posts from the filesystem
-const blogModules = import.meta.glob('/src/routes/blog/**/+page.md', { eager: true });
+const blogModules = import.meta.glob('/src/routes/blog/**/+page.{md,svx}', { eager: true });
 const blogPosts = Object.entries(blogModules)
   .map(([filePath, module]) => createBlogPost(filePath, module as MarkdownModule))
   .sort((left, right) => Date.parse(right.date) - Date.parse(left.date));
@@ -53,7 +53,7 @@ function createBlogPost(filePath: string, module: MarkdownModule): BlogPost {
 }
 
 function extractSlug(filePath: string): string {
-  const match = /^\/src\/routes\/blog\/(.+)\/\+page\.md$/.exec(filePath);
+  const match = /^\/src\/routes\/blog\/(.+)\/\+page\.(md|svx)$/.exec(filePath);
 
   if (!match) {
     throw new Error(`Unexpected blog post path: ${filePath}`);
