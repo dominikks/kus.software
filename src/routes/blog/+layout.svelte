@@ -69,5 +69,10 @@
     :global(code) {
       font-size: 0.9em;
     }
+
+    :global(.muted) {
+      color: var(--muted-color);
+      font-size: 16px;
+    }
   }
 </style>

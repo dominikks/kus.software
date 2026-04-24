@@ -31,3 +31,9 @@ It required no preparation (like bringing a laptop on my weekend trip) and no co
 This blog post is **mostly an invitation**:
 If you have some time on your hands while travelling and want to make some progress on your side project, give GitHub Copilot agents on your phone a try!
 For me it was a genuine Wow moment, and I think **maintaining side projects just became significantly easier**.
+
+<p class="muted">
+  <em>Note:</em> This article was originally written during my employment at
+  <a href="https://tngtech.com">TNG</a> and is republished here with permission. The opinions
+  are my own and TNG does not endorse this publication.
+</p>
