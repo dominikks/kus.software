@@ -1,10 +1,10 @@
-<section class="profile">
+<header class="profile">
   <div class="profile-picture">
     <img alt="Profile photograph" src="/profile.jpg" />
   </div>
 
   <div class="profile-description">
-    <h1>Dominik Kus</h1>
+    <h1 class="profile-name">Dominik Kus</h1>
     <p>
       I am a <span class="bold">Software Consultant</span> and Computer Scientist based in Germany.
     </p>
@@ -87,7 +87,7 @@
       </a>
     </div>
   </div>
-</section>
+</header>
 
 <style lang="scss">
   .profile {
@@ -117,12 +117,12 @@
   .profile-description {
     font-size: 24px;
     max-width: 550px;
+  }
 
-    h1 {
-      color: var(--primary-color);
-      font-size: 40px;
-      font-weight: 300;
-    }
+  .profile-name {
+    color: var(--primary-color);
+    font-size: 40px;
+    font-weight: 300;
   }
 
   .socials {

@@ -1,19 +1,40 @@
 <script lang="ts">
+  import { resolve } from '$app/paths';
   import Footer from '$lib/components/Footer.svelte';
+  import ProfileSection from '$lib/components/ProfileSection.svelte';
 </script>
 
-<main class="blog-post">
-  <slot />
+<ProfileSection />
+<hr />
+
+<main class="blog-page">
+  <a class="back-link" href={resolve('/')}>Back to homepage</a>
+
+  <article class="blog-post">
+    <slot />
+  </article>
 </main>
 
 <Footer />
 
 <style lang="scss">
-  .blog-post {
+  .blog-page {
     margin: 0 auto;
     max-width: 720px;
     padding: 48px 20px 64px;
+  }
 
+  .back-link {
+    color: var(--muted-color);
+    text-decoration: none;
+    width: fit-content;
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+
+  .blog-post {
     :global(h1),
     :global(h2),
     :global(h3) {
