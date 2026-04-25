@@ -1,12 +1,10 @@
-<script>
-  import { resolve } from '$app/paths';
+<script lang="ts">
+  import TopNav from '$lib/components/TopNav.svelte';
 </script>
 
-<main class="container">
-  <div class="back-button">
-    <a href={resolve('/')}>← Back to main page</a>
-  </div>
+<TopNav />
 
+<main class="container">
   <h1>Imprint</h1>
 
   <p>
@@ -607,7 +605,6 @@
 </main>
 
 <style lang="scss">
-  .back-button,
   p,
   h1,
   h4 {
