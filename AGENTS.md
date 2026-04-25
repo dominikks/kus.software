@@ -19,7 +19,7 @@ This project uses a clean, minimalist, and dependency-free CSS architecture (SCS
 
 ## SEO & Sitemap
 
-- **SEO Defaults:** Meta tags (OpenGraph, titles, descriptions) are centrally managed via `$lib/site.ts` and `src/routes/+layout.svelte`.
+- **SEO Defaults:** Meta tags (OpenGraph, titles, descriptions) are centrally managed via `$lib/server/site.ts` and `src/routes/+layout.svelte`.
 - **Sitemap Updates:** The sitemap is generated in `src/routes/sitemap.xml/+server.ts`.
   - **IMPORTANT:** Whenever you add a **new static page** to the site (e.g., a new route outside of dynamically loaded blog posts), you **must** manually add it to the `pages` array in the sitemap.
   - **Exception:** Do not add pages to the sitemap if they have a `noindex` tag (like legal or imprint pages).

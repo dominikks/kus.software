@@ -1,6 +1,6 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import type { BlogPost } from '$lib/blog';
+  import type { BlogPost } from '$lib/models/blog-post';
 
   export let posts: BlogPost[];
 
