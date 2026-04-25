@@ -42,9 +42,6 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
 
-    text-decoration: underline;
-    text-underline-offset: 4px;
-
     &:hover {
       color: var(--text-main);
     }
