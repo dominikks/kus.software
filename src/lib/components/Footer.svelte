@@ -1,10 +1,11 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
+  import { page } from '$app/state';
 </script>
 
 <footer>
   <div class="footer-content container">
-    <p>© 2026 Dominik Kus.</p>
+    <p>© {page.data.buildYear} Dominik Kus.</p>
     <a href={resolve('/imprint')}>Imprint</a>
   </div>
 </footer>
