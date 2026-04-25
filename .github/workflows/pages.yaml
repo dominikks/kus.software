@@ -11,9 +11,9 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
+# Allow one concurrent run per branch; cancel in-progress runs on the same branch when a new commit arrives
 concurrency:
-  group: 'pages'
+  group: ${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
