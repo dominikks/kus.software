@@ -40,21 +40,21 @@
     left: 0;
     right: 0;
 
-    padding: 24px;
+    padding: var(--space-6);
 
     background-color: rgba(252, 252, 251, 0.7);
     backdrop-filter: blur(8px);
     z-index: 1;
 
     @media (min-width: $breakpoint-mobile) {
-      padding: 24px 40px;
+      padding: var(--space-6) var(--space-12);
     }
   }
 
   .back-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-2);
     @include text-meta(13px, 600);
     @include link-muted();
 

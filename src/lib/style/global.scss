@@ -25,6 +25,15 @@
   --content-width: 680px;
   --transition-fast: 0.2s ease;
 
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
   color: var(--text-main);
   background-color: var(--background);
   line-height: 1.6;
@@ -56,24 +65,24 @@ hr {
   max-width: 64px;
   border: 0;
   background-color: var(--border);
-  margin: 24px auto;
+  margin: var(--space-6) auto;
 }
 
 .container {
   width: 100%;
   max-width: var(--content-width);
   margin: 0 auto;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: var(--space-6);
+  padding-right: var(--space-6);
 }
 
 main {
   flex-grow: 1;
   width: 100%;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: var(--space-12);
+  padding-bottom: var(--space-12);
 }
 
 section {
-  margin-bottom: 64px;
+  margin-bottom: var(--space-16);
 }

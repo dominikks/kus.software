@@ -15,7 +15,7 @@
 
   footer {
     border-top: 1px solid var(--border);
-    padding: 24px 0;
+    padding: var(--space-6) 0;
   }
 
   .footer-content {

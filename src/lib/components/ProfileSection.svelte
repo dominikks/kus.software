@@ -28,14 +28,14 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding-top: 64px;
+    padding-top: var(--space-16);
   }
 
   .profile-picture-container {
-    padding: 4px;
+    padding: var(--space-1);
     border: 1px solid var(--border);
     border-radius: 50%;
-    margin-bottom: 16px;
+    margin-bottom: var(--space-4);
 
     img {
       width: 128px;
@@ -50,7 +50,7 @@
     font-size: 48px;
     font-weight: 400;
     letter-spacing: -0.02em;
-    margin: 0 0 16px 0;
+    margin: 0 0 var(--space-4) 0;
     line-height: 1.1;
   }
 
@@ -63,8 +63,8 @@
 
   .socials {
     display: flex;
-    gap: 24px;
-    margin-top: 24px;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
 
     a {
       @include text-meta(14px, 500);

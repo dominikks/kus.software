@@ -33,20 +33,20 @@
   .blog {
     margin: 0 auto;
     text-align: left;
-    margin: 48px 0;
+    margin: var(--space-12) 0;
   }
 
   h2 {
     font-size: 32px;
     font-weight: 400;
-    margin: 0 0 32px 0;
+    margin: 0 0 var(--space-8) 0;
     line-height: 1.2;
   }
 
   .articles {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: var(--space-12);
     list-style: none;
     padding: 0;
     margin: 0;
@@ -65,8 +65,8 @@
   .article-header {
     display: flex;
     flex-direction: column;
-    margin-bottom: 8px;
-    column-gap: 16px;
+    margin-bottom: var(--space-2);
+    column-gap: var(--space-4);
 
     @media (min-width: $breakpoint-mobile) {
       flex-direction: row;
@@ -85,7 +85,7 @@
 
   time {
     @include text-meta(12px, 600);
-    margin-top: 4px;
+    margin-top: var(--space-1);
 
     @media (min-width: $breakpoint-mobile) {
       margin-top: 0;
