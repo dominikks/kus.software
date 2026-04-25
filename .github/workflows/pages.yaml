@@ -22,24 +22,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: v2.x
-
       - name: Checkout
         uses: actions/checkout@v6
         with:
           lfs: true
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
       - name: Install dependencies
-        run: deno install --frozen
+        run: npm ci
 
       - name: Lint
-        run: deno task lint
+        run: npm run lint
+
+      - name: Check
+        run: npm run check
 
       - name: Build
-        run: deno task build
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
