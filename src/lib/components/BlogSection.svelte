@@ -7,6 +7,7 @@
   const dateFormatter = new Intl.DateTimeFormat('en', {
     month: 'short',
     year: 'numeric',
+    timeZone: 'UTC',
   });
 </script>
 
