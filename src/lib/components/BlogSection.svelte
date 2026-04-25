@@ -66,7 +66,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 8px;
-    gap: 16px;
+    column-gap: 16px;
 
     @media (min-width: $breakpoint-mobile) {
       flex-direction: row;
@@ -80,15 +80,11 @@
     font-weight: 500;
     margin: 0;
     line-height: 1.3;
-    transition: color 0.3s ease;
+    transition: color var(--transition-fast);
   }
 
   time {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
+    @include text-meta(12px, 600);
     margin-top: 4px;
 
     @media (min-width: $breakpoint-mobile) {

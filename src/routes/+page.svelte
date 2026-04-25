@@ -7,7 +7,7 @@
   export let data: PageData;
 </script>
 
-<main>
+<main class="container">
   <ProfileSection />
   <hr />
   <BlogSection posts={data.posts} />

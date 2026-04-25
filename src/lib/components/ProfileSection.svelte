@@ -21,6 +21,8 @@
 </header>
 
 <style lang="scss">
+  @use '$lib/style/variables' as *;
+
   .profile {
     display: flex;
     flex-direction: column;
@@ -65,14 +67,12 @@
     margin-top: 24px;
 
     a {
-      font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-
-      &:hover {
-        color: var(--text-main);
-      }
+      @include text-meta(14px, 500);
+      @include link-muted();
     }
+  }
+
+  .bold {
+    font-weight: 600;
   }
 </style>

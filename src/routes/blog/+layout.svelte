@@ -23,7 +23,7 @@
   </a>
 </nav>
 
-<main>
+<main class="container">
   <article class="blog-post">
     <slot />
   </article>
@@ -55,15 +55,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-
-    &:hover {
-      color: var(--text-main);
-    }
+    @include text-meta(13px, 600);
+    @include link-muted();
 
     svg {
       width: 16px;

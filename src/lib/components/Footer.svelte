@@ -3,25 +3,21 @@
 </script>
 
 <footer>
-  <div class="footer-content">
+  <div class="footer-content container">
     <p>© 2026 Dominik Kus.</p>
     <a href={resolve('/imprint')}>Imprint</a>
   </div>
 </footer>
 
 <style lang="scss">
+  @use '$lib/style/variables' as *;
+
   footer {
     border-top: 1px solid var(--border);
     padding: 24px 0;
   }
 
   .footer-content {
-    width: 100%;
-    max-width: var(--content-width);
-    margin: 0 auto;
-    padding: 0 24px;
-    box-sizing: border-box;
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -29,21 +25,12 @@
   }
 
   p {
-    color: var(--text-muted);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    @include text-meta(12px, 400);
     margin: 0;
   }
 
   a {
-    color: var(--text-muted);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-
-    &:hover {
-      color: var(--text-main);
-    }
+    @include text-meta(12px, 400);
+    @include link-muted();
   }
 </style>
