@@ -1,0 +1,18 @@
+$breakpoint-mobile: 768px;
+
+@mixin text-meta($size: 12px, $weight: 500) {
+  font-size: $size;
+  font-weight: $weight;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+@mixin link-muted() {
+  color: var(--text-muted);
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--text-main);
+  }
+}

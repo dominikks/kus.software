@@ -1,0 +1,60 @@
+<script lang="ts">
+  import { resolve } from '$app/paths';
+  import type { ResolvedPathname } from '$app/types';
+
+  export let label = 'INDEX';
+  export let href: ResolvedPathname = resolve('/');
+</script>
+
+<nav class="top-nav">
+  <a class="back-link" {href}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    {label}
+  </a>
+</nav>
+
+<style lang="scss">
+  @use '$lib/style/variables' as *;
+
+  .top-nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    padding: var(--space-6);
+
+    background-color: rgba(252, 252, 251, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 1;
+
+    @media (min-width: $breakpoint-mobile) {
+      padding: var(--space-6) var(--space-12);
+    }
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    @include text-meta(13px, 600);
+    @include link-muted();
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+</style>
