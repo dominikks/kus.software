@@ -9,11 +9,11 @@ type BlogFrontmatter = {
   updated?: string;
   description: string;
   published?: boolean;
+  image?: string;
 };
 
 type MarkdownModule = {
   metadata?: Record<string, unknown>;
-  ogImage?: string;
 };
 
 // Load all blog posts from the filesystem
@@ -27,7 +27,6 @@ function createBlogPost(filePath: string, module: MarkdownModule): BlogPost {
   const slug = extractSlug(filePath);
   const url = `/blog/${slug}` as Pathname;
   const metadata = parseFrontmatter(filePath, module.metadata);
-  const image = module.ogImage ? toAbsoluteUrl(module.ogImage) : undefined;
 
   return {
     slug,
@@ -38,7 +37,7 @@ function createBlogPost(filePath: string, module: MarkdownModule): BlogPost {
     updated: metadata.updated,
     description: metadata.description,
     published: metadata.published !== false,
-    image,
+    image: metadata.image ? toAbsoluteUrl(metadata.image) : undefined,
   };
 }
 
@@ -65,6 +64,7 @@ function parseFrontmatter(
   const description = expectString(metadata.description, 'description', filePath);
   const updated = metadata.updated ? expectDate(metadata.updated, 'updated', filePath) : undefined;
   const published = metadata.published;
+  const image = metadata.image ? expectString(metadata.image, 'image', filePath) : undefined;
 
   if (published !== undefined && typeof published !== 'boolean') {
     throw new Error(`Expected frontmatter field "published" to be a boolean in ${filePath}`);
@@ -76,6 +76,7 @@ function parseFrontmatter(
     updated,
     description,
     published,
+    image,
   };
 }
 

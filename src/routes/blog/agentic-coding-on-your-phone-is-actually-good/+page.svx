@@ -6,14 +6,9 @@ description: How I discovered that GitHub Copilot on mobile is amazing
 published: true
 ---
 
-<script lang="ts">
-    import Image from './mobile-coding-on-train.jpg';
-    export const ogImage = Image;
-</script>
-
 # Agentic Coding On Your Phone Is Actually Good(?!)
 
-<img src={Image} alt="A person working on pull requests on their phone from a train with sheep outside the window" />
+<enhanced:img src="./mobile-coding-on-train.jpg" alt="A person working on pull requests on their phone from a train with sheep outside the window" />
 
 I had (another) **"Wow" moment with AI** at the start of the year.
 I found myself bored on a train to Cork and decided to give the **GitHub Copilot agent on my phone** a try.
