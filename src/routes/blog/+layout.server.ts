@@ -5,7 +5,7 @@ import type { LayoutServerLoad } from './$types';
 export const load: LayoutServerLoad = ({ url }) => {
   const post = getBlogPostByPath(url.pathname);
 
-  if (!post) {
+  if (!post || !post.published) {
     throw error(404, 'Post not found');
   }
 

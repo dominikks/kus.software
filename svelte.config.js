@@ -7,7 +7,7 @@ const config = {
   kit: {
     adapter: adapter(),
   },
-  preprocess: [vitePreprocess(), mdsvex({ extensions: ['.svx', '.md'] })],
+  preprocess: [mdsvex({ extensions: ['.svx', '.md'] }), vitePreprocess()],
   extensions: ['.svelte', '.svx', '.md'],
 };
 
