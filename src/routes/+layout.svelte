@@ -1,6 +1,5 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { siteConfig } from '$lib/site';
 
   import 'ress/ress.css';
   import '$lib/style/global.scss';
@@ -11,7 +10,7 @@
   <meta name="description" content={page.data.seo.description} />
   <link rel="canonical" href={page.data.seo.canonical} />
 
-  <meta property="og:site_name" content={siteConfig.name} />
+  <meta property="og:site_name" content={page.data.siteName} />
   <meta property="og:type" content={page.data.seo.openGraph.type} />
   <meta property="og:title" content={page.data.seo.openGraph.title} />
   <meta property="og:description" content={page.data.seo.openGraph.description} />

@@ -1,5 +1,5 @@
 import type { Pathname } from '$app/types';
-import { siteConfig, toAbsoluteUrl, type Seo } from '$lib/site';
+import { siteConfig, toAbsoluteUrl, type Seo } from '$lib/server/site';
 
 type BlogFrontmatter = {
   title: string;
