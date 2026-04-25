@@ -9,13 +9,15 @@
   </p>
 
   <div class="socials">
-    <a href="https://twitter.com/dominikks" rel="noopener noreferrer" target="_blank">TWITTER</a>
     <a
       href="https://www.linkedin.com/in/dominik-kus-08a772252"
       rel="noopener noreferrer"
       target="_blank">LINKEDIN</a
     >
     <a href="https://github.com/dominikks" rel="noopener noreferrer" target="_blank">GITHUB</a>
+    <a href="https://orcid.org/0000-0002-9375-9643" rel="noopener noreferrer" target="_blank"
+      >ORCID</a
+    >
     <a href="mailto:dominik@kus.software" rel="noopener noreferrer">EMAIL</a>
   </div>
 </header>
