@@ -19,7 +19,7 @@
     Email: <a href="mailto:dominik@kus.software">dominik@kus.software</a>
   </p>
 
-  <h1>Privacy Policy</h1>
+  <h2>Privacy Policy</h2>
 
   <p>
     We are very delighted that you have shown interest in our enterprise. Data protection is of a
@@ -48,7 +48,7 @@
     personal data to us via alternative means, e.g. by telephone.
   </p>
 
-  <h4>1. Definitions</h4>
+  <h3>1. Definitions</h3>
   <p>
     The data protection declaration of the Dominik Kus is based on the terms used by the European
     legislator for the adoption of the General Data Protection Regulation (GDPR). Our data
@@ -162,7 +162,7 @@
     </li>
   </ul>
 
-  <h4>2. Name and Address of the controller</h4>
+  <h3>2. Name and Address of the controller</h3>
   <p>
     Controller for the purposes of the General Data Protection Regulation (GDPR), other data
     protection laws applicable in Member states of the European Union and other provisions related
@@ -170,7 +170,7 @@
     above).
   </p>
 
-  <h4>3. Collection of general data and information</h4>
+  <h3>3. Collection of general data and information</h3>
   <p>
     The website of the Dominik Kus collects a series of general data and information when a data
     subject or automated system calls up the website. This general data and information are stored
@@ -195,7 +195,7 @@
     by a data subject.
   </p>
 
-  <h4>4. Routine erasure and blocking of personal data</h4>
+  <h3>4. Routine erasure and blocking of personal data</h3>
   <p>
     The data controller shall process and store the personal data of the data subject only for the
     period necessary to achieve the purpose of storage, or as far as this is granted by the European
@@ -208,7 +208,7 @@
     erased in accordance with legal requirements.
   </p>
 
-  <h4>5. Rights of the data subject</h4>
+  <h3>5. Rights of the data subject</h3>
   <ul style="list-style: none;">
     <li>
       <h4>a) Right of confirmation</h4>
@@ -474,7 +474,7 @@
       </p>
     </li>
   </ul>
-  <h4>6. Data protection provisions about the application and use of Matomo</h4>
+  <h3>6. Data protection provisions about the application and use of Matomo</h3>
   <p>
     On this website, the controller has integrated the Matomo component. Matomo is an open-source
     software tool for web analysis. Web analysis is the collection, gathering and evaluation of data
@@ -541,7 +541,7 @@
     under https://matomo.org/privacy/.
   </p>
 
-  <h4>7. Legal basis for the processing</h4>
+  <h3>7. Legal basis for the processing</h3>
   <p>
     Art. 6(1) lit. a GDPR serves as the legal basis for processing operations for which we obtain
     consent for a specific processing purpose. If the processing of personal data is necessary for
@@ -566,14 +566,14 @@
     if the data subject is a client of the controller (Recital 47 Sentence 2 GDPR).
   </p>
 
-  <h4>8. The legitimate interests pursued by the controller or by a third party</h4>
+  <h3>8. The legitimate interests pursued by the controller or by a third party</h3>
   <p>
     Where the processing of personal data is based on Article 6(1) lit. f GDPR our legitimate
     interest is to carry out our business in favor of the well-being of all our employees and the
     shareholders.
   </p>
 
-  <h4>9. Period for which the personal data will be stored</h4>
+  <h3>9. Period for which the personal data will be stored</h3>
   <p>
     The criteria used to determine the period of storage of personal data is the respective
     statutory retention period. After expiration of that period, the corresponding data is routinely
@@ -581,11 +581,11 @@
     initiation of a contract.
   </p>
 
-  <h4>
+  <h3>
     10. Provision of personal data as statutory or contractual requirement; Requirement necessary to
     enter into a contract; Obligation of the data subject to provide the personal data; possible
     consequences of failure to provide such data
-  </h4>
+  </h3>
   <p>
     We clarify that the provision of personal data is partly required by law (e.g. tax regulations)
     or can also result from contractual provisions (e.g. information on the contractual partner).
@@ -600,13 +600,15 @@
     consequences of non-provision of the personal data.
   </p>
 
-  <h4>11. Existence of automated decision-making</h4>
+  <h3>11. Existence of automated decision-making</h3>
   <p>As a responsible company, we do not use automatic decision-making or profiling.</p>
 </main>
 
 <style lang="scss">
   p,
   h1,
+  h2,
+  h3,
   h4 {
     margin-bottom: var(--space-4);
   }

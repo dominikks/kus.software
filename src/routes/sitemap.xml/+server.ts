@@ -6,7 +6,6 @@ export const prerender = true;
 export function GET() {
   const pages: Array<{ path: string; lastmod?: string }> = [
     { path: '/' },
-    { path: '/imprint' },
     ...getPublishedBlogPosts().map((post) => ({
       path: post.url,
       lastmod: post.updated ?? post.date,
