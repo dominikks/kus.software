@@ -4,7 +4,49 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    groups:
+      safe-npm-dependencies:
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
+        exclude-patterns:
+          - '@sveltejs/*'
+          - 'svelte'
+          - 'vite'
+          - 'mdsvex'
+          - 'typescript'
+          - 'typescript-eslint'
+      svelte-and-build-toolchain:
+        patterns:
+          - '@sveltejs/*'
+          - 'svelte'
+          - 'vite'
+          - 'mdsvex'
+          - 'typescript'
+          - 'typescript-eslint'
+        update-types:
+          - 'minor'
+          - 'patch'
+      major-npm-updates:
+        patterns:
+          - '*'
+        update-types:
+          - 'major'
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
       interval: 'weekly'
+    groups:
+      safe-github-actions:
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
+      major-github-actions:
+        patterns:
+          - '*'
+        update-types:
+          - 'major'
