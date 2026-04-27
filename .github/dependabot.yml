@@ -39,14 +39,6 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
-      safe-github-actions:
+      github-actions:
         patterns:
           - '*'
-        update-types:
-          - 'minor'
-          - 'patch'
-      major-github-actions:
-        patterns:
-          - '*'
-        update-types:
-          - 'major'
