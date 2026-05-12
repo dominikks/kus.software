@@ -87,6 +87,7 @@
   time {
     @include text-meta(12px, 600);
     margin-top: var(--space-1);
+    flex: none;
 
     @media (min-width: $breakpoint-mobile) {
       margin-top: 0;
