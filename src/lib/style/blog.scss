@@ -78,7 +78,7 @@
 
   img {
     display: block;
-    width: 100%;
+    max-width: 100%;
     height: auto;
     margin: var(--space-8) 0;
     border-radius: var(--space-1);
