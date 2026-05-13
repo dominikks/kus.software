@@ -1,0 +1,59 @@
+---
+title: >
+  Pico CSS: A Better CSS Reset
+date: 2026-05-14
+updated: 2026-05-14
+description: Why Pico CSS is a great choice for minimalist projects and how it differs from traditional resets
+published: false
+---
+
+<script>
+  import TngFooter from '$lib/components/TngFooter.svelte';
+</script>
+
+# Pico CSS: A Better CSS Reset
+
+I have recently found myself searching for a UI library for a personal [Sveltekit](https://kit.svelte.dev/) project.
+
+During my research, I found that there does not seem to be a default/"go to" UI library for Svelte (like [Angular Material](https://material.angular.io/) for Angular projects).
+And while I found some libraries during my research (e.g., [Flowbite Svelte](https://flowbite-svelte.com/) and [shadcn-svelte](https://www.shadcn-svelte.com/)), none of them really appealed to me, mostly because I felt they were too complex for my small project.
+Just before settling on some basic CSS reset and rolling my own CSS, I stumbled upon Pico CSS.
+
+## Overview
+
+[Pico CSS](https://picocss.com/) basically acts as a **superpowered CSS reset**.
+It applies styles to regular HTML elements like buttons, links, forms, etc., and makes use of **HTML features instead of overly relying on CSS classes**.
+Setting `aria-busy="true"` on an element will, for example, automatically show a loading indicator ([Docs](https://picocss.com/docs/loading)), and the `&lt;article&gt;` element will render as a card ([Docs](https://picocss.com/docs/card)).
+Furthermore, Pico is **entirely based on CSS** (with some additional customization options when using SASS) and therefore works with (or without) any web framework.
+It also comes in at just **11.3 kB gzipped** [according to Bundlephobia](https://bundlephobia.com/package/@picocss/pico@2.0.6).
+
+I particularly like that using Pico CSS **feels like writing pure HTML**.
+Many elements come prestyled and layouts can be defined with native HTML elements like `&lt;header&gt;` and `&lt;main&gt;` without additional CSS or special classes.
+Apart from being easy, this also naturally promotes accessibility by encouraging the use of semantic HTML elements.
+
+Pico also provides some CSS variables that are derived from the theme like `--pico-color` for foreground/text color or `--pico-primary` for the theme's primary color.
+By using these variables, you get automatic support for a dark and light mode that switches based on the user's browser preferences (and can also be controlled manually).
+
+## Screenshots
+
+Pico CSS provides a preview page written in pure HTML to showcase its possibilities: [https://4mrnhq.csb.app/](https://4mrnhq.csb.app/).
+The following screenshots showcase some of the design.
+
+<enhanced:img src="./form-elements.png" alt="PicoCSS's form stylings" />
+
+<enhanced:img src="./loading-spinners.png" alt="PicoCSS's loading card and loading button" />
+
+<enhanced:img src="./confirm-dialog.png" alt="PicoCSS's confirm dialog" />
+
+## Some Caveats
+
+As I have only used Pico CSS for a small personal project, I am not sure how well it would scale to bigger websites or applications.
+The library authors themselves claim that Pico works best for "pure HTML pages", "simple landing pages", and "minimal websites", and does not work well for "large-scale projects with many components" ([Source](https://picocss.com/docs/usage-scenarios)).
+As bigger applications often have more heavily customized styling in my experience, the usefulness of Pico would be more questionable in those cases.
+
+## Conclusion
+
+Overall, I really enjoy using Pico CSS and would recommend it to anyone working on a small project that does not need a lot of CSS customization.
+It comes with good default styles, a customizable theme, and mostly gets out of the way.
+
+<TngFooter />
