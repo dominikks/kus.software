@@ -6,6 +6,7 @@ When working on this codebase, please adhere to the following project-specific g
 
 - **Minimal & Redundancy-Free:** Write clean, minimal code. Avoid useless boilerplate or redundant logic.
 - **Stick to Defaults:** Rely on language and framework defaults whenever possible rather than creating custom, overly complex abstractions. Keep it simple.
+- **Sentence-per-line in Markdown:** In Markdown and `.svx` files, put each sentence on its own line. This improves diff readability and makes editing easier.
 
 ## CSS & Styling Structure
 
