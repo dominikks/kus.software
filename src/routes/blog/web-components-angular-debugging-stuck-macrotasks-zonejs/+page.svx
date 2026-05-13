@@ -1,0 +1,129 @@
+---
+title: >
+  Web Components + Angular: Debugging Stuck Macrotasks in Zone.js
+date: 2026-05-17
+updated: 2026-05-17
+description: How to instrument zone.js to track pending tasks and find performance bottlenecks
+published: false
+---
+
+<script>
+  import TngFooter from '$lib/components/TngFooter.svelte';
+  import { base } from '$app/paths';
+</script>
+
+# Web Components + Angular: Debugging Stuck Macrotasks in Zone.js
+
+In one of my projects, we were developing a UI component set for Angular using a web component library as a building block.
+While this works well for the most part, there are some traps to fall into in such a setup (see also my [previous blog post]({base}/blog/web-components-angular-mixing-cd-strategies) on the topic).
+
+This post describes one such issue we faced and shows how we **instrumented `zone.js` to be able to track pending tasks and their source**.
+While zoneless [became the standard in Angular v21](https://angular.dev/guide/zoneless), many existing projects still rely on `zone.js`, making this technique relevant.
+
+## Problem: `fixture.whenStable()` times out in unit tests
+
+In Angular unit tests, `await fixture.whenStable()` is a commonly used pattern to wait for a component to "stabilize", meaning that all outstanding micro- and macrotasks (in the Angular Zone) have completed.
+
+```ts
+TestBed.configureTestingModule({
+  imports: [MyComponent],
+});
+
+const fixture = TestBed.createComponent(MyComponent);
+fixture.detectChanges();
+
+// Wait for all pending tasks to complete
+await fixture.whenStable();
+```
+
+This is useful if, for example, the component under test performs some **asynchronous data fetching** that needs to be awaited before running the test.
+Even when mocking these asynchronous calls, there might still be some asynchronicity, e.g., through Promises or `setTimeout`.
+`fixture.whenStable()` is even more important when using [automatic change detection](https://v19.angular.dev/guide/testing/components-scenarios#automatic-change-detection) in unit tests, as it is the recommended way to wait for changes to reflect in the DOM according to [Angular's docs](https://v19.angular.dev/guide/testing/components-scenarios#example-10).
+
+The problem we faced was that, when using our button component, `await fixture.whenStable()` would always block until the test timed out after 5 seconds.
+This was a problem for our own unit tests, but also blocked the consumers of our library from using `fixture.whenStable()`.
+After some testing, we also discovered that this prevented the actual app from becoming stable as well (or at least delayed it), so it did not only affect the tests.
+
+## Debugging the problem
+
+We quickly found out that the issue was related to the button from the web component library we were using, as commenting it out fixed the problem (but of course broke the functionality).
+Furthermore, increasing the test timeout from the default 5 seconds to 15 seconds made the test terminate correctly (albeit very slowly...), indicating that this might be a one-off task that was stuck somehow.
+
+So we were left with trying to find out **which task was actually blocking and for what reason**.
+While the code of the web component library is open-source, we were not able to figure out where our blocking task was originating by simply looking through the code.
+
+So it was time to resort to more drastic measures.
+After some research, we found [this StackOverflow post](https://stackoverflow.com/a/57854350) describing that `zone.js` can actually be instrumented to track the pending tasks and print them to the console together with a stack trace pointing to where they originate.
+Unfortunately, the post is from 2019 and the API has changed somewhat in the meantime.
+
+## Instrumenting `zone.js` to track tasks
+
+We managed to get the tracking to work in the end by doing the following.
+Note that we were using Angular 19 at the time, though this approach should still work with `zone.js` in later versions.
+
+1. Adding an import to `zone.js/plugins/task-tracking` to wherever `zone.js` is also imported.
+   When using the standard Angular CLI setup, this can be done by adding the following to the `angular.json`:
+
+  ```
+  "build": {
+    "builder": "@angular-devkit/build-angular:application",
+    "options": {
+        // Add it here to use at runtime
+        "polyfills": ["zone.js", "zone.js/plugins/task-tracking"],
+        // ...
+  },
+  "test": {
+    "builder": "@angular-devkit/build-angular:karma",
+    "options": {
+        // Add it here to use during testing. This might differ for other test runners.
+        "polyfills": ["zone.js", "zone.js/testing", "zone.js/plugins/task-tracking"],
+        // ..
+  ```
+
+  I have also seen some cases where `zone.js` is imported through a dedicated test setup file.
+  In such a case, the additional import would need to be added there instead.
+
+2. Adding the following code to either the application code, or the testing code (depending on whether you want to track during runtime in the browser or during test time):
+
+  ```ts
+  // Get the NgZone reference (must be run in an injection context).
+  // Or use TestBed.inject(NgZone) if you are in a unit test.
+  const zone = inject(NgZone);
+
+  const taskTrackingZone = (zone as any)._inner.getZoneWith('TaskTrackingZone');
+  if (!taskTrackingZone) {
+    throw new Error(
+      "'TaskTrackingZone' zone not found! Have you loaded 'zone.js/plugins/task-tracking'?",
+    );
+  }
+
+  // Run this to fetch and print the currently pending tasks:
+  const macroTasks: any[] = taskTrackingZone._properties.TaskTrackingZone.getTasksFor('macroTask');
+  console.log('ZONE pending macroTasks=', macroTasks);
+  macroTasks.forEach((task) => console.log(task.creationLocation));
+  ```
+
+  This will **log the list of pending macrotasks and log a stack trace into the console pointing to the creation location of each of them**.
+  This code can be put into a `setInterval` (outside the Angular Zone) to run periodically, or run manually wherever it is needed.
+
+## The culprit: A usage statistics module
+
+Using this instrumentation together with the browser's debugger, we were able to pinpoint the blocking task to a usage statistics module which is intended to gather some statistics on the usage of the web component library _during development time_.
+After some digging, we found this line in the library's source code:
+
+```ts
+this.gatherDelay = 10; // Delay between loading this file and gathering statistics
+```
+
+which seems to define that the statistics are gathered 10 seconds after the component is loaded, matching our observation that increasing the test timeout to 15 seconds masks the issue.
+And indeed: After disabling this module (which was not as easy as one would think), the pending task was gone and `fixture.whenStable()` would terminate immediately!
+
+To ensure that our fix keeps working, we also added a unit test that ensures that the component becomes stable within the regular test timeout.
+
+## Takeaways
+
+While this post focuses on the specific problem we faced, **instrumenting `zone.js` could also be a useful tool in other contexts** to find out about stuck or unexpected asynchronous tasks being executed.
+Before this investigation, I was not aware this was even possible, and the official documentation seems to be unfortunately sparse.
+So maybe this post can serve as a starting point if someone is facing a similar issue.
+
+<TngFooter />
