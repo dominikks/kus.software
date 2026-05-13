@@ -1,0 +1,91 @@
+---
+title: >
+  Web Components + Angular: Mixing Change Detection Strategies Has Its Pitfalls
+date: 2026-05-13
+updated: 2026-05-13
+description: Investigating a performance issue when using web components with Angular and how to solve it by moving components outside the Angular Zone.
+published: true
+---
+
+# Web Components + Angular: Mixing Change Detection Strategies Has Its Pitfalls
+
+> TL;DR: If you use web components inside Angular with `zone.js`, their internal event listeners can trigger excessive change detection. Moving them outside the Angular Zone or adopting zoneless Angular can fix it.
+
+In one of my projects, we were developing a UI component set for Angular using a web component library as a building block.
+While we found that Angular and web components generally work well together ([custom-elements-everywhere attests full compatibility](https://custom-elements-everywhere.com/)), we ran into an interesting performance problem I thought was worth sharing.
+
+## Problem: Poor performance of our list
+
+One of the apps built on our component set reported poor performance using our list component with roughly 400 items.
+In particular, the list would take multiple seconds to render in the DOM (during which the browser tab was unresponsive) and clicking on buttons within the list items was also slow and produced delays.
+
+While this sounds like a case for using virtual scrolling at first, the list items only consisted of some text and a button that opens a menu, and we felt that the performance with this number of items should be a lot better even without virtual scrolling.
+
+We started our investigation by isolating the issue.
+While the performance degraded heavily using our list component, rendering the 400 items directly in the DOM *without* our list worked flawlessly, confirming the bottleneck was in our implementation.
+
+## Cause: Event listener within web component triggers change detection
+
+After some investigation with the Angular DevTools profiler, it turned out that rendering our list would trigger Angular's change detection (CD) roughly once for every item in the list.
+So in our particular case with 400 items, **CD would run over 400 times in rapid succession**, effectively blocking the browser tab for seconds at a time.
+
+We tracked the source of these CD invocations down to a **custom event** called "items-outside-click" **fired by the menu web component** we use within the list items.
+Crucially, our Angular application was not explicitly binding to this event in the template.
+Instead, the web component registered its own internal listener.
+Because `zone.js` monkey-patches standard browser APIs like `addEventListener`, this internal listener was automatically caught in the Angular Zone.
+
+Since this event is **triggered during the creation of the menu**, and every list item contains one of these menus, every list item results in one event being dispatched.
+As `zone.js` automatically triggers CD after event listener invocations, this results in the huge number of CD runs we see when our list is instantiated.
+
+Moreover, the menu component also fires this event when the user clicks anywhere on the screen except the menu, even if the _menu is not opened_.
+So, effectively, every click by the user would result in another 400 CD runs, making the app barely usable.
+
+After realizing this, we **moved the menu component outside of the Angular Zone** (using `NgZone.runOutsideAngular`), and the performance issue disappeared completely.
+
+## Takeaway: Mixing change detection philosophies has its pitfalls
+
+Ultimately, our performance issue stemmed from the different change detection philosophies of [Polymer](https://polymer-library.polymer-project.org/3.0/docs/devguide/data-system) (which is the basis for the menu web component) and Angular.
+As browser events in the Polymer context incur no significant performance cost, there is no incentive to minimize their usage.
+In Angular, on the other hand, the automatic change detection through `zone.js` requires a full CD run starting from the root component for every invoked event listener to find potential changes to bound data.
+This can be a drag on performance, meaning that Angular developers have to be conscious of not triggering too many browser events, or else move them outside the Angular Zone.
+
+However, moving all web components outside the Angular Zone is also not a perfect solution.
+To my knowledge, it requires either using a custom structural directive that instantiates its content outside the Angular Zone:
+
+```html
+<menu *runOutsideZone></menu>
+```
+
+Or manually instantiating the components in code:
+
+```ts
+const menu = this.zone.runOutsideAngular(() => new Menu());
+document.body.appendChild(menu);
+```
+
+Both approaches come with caveats:
+
+- **Structural directive:** Bindings are still executed inside the Angular Zone, which can counteract the intended effect.
+- **Manual instantiation:** Data bindings are not available at all, and event handlers will not automatically trigger CD.
+
+Thus, moving web components outside the Angular Zone comes with trade-offs and increases complexity.
+
+## Modern Angular to the rescue: Zoneless change detection
+
+Since this issue originally occurred, Angular has started moving away from `zone.js` entirely.
+[Zoneless change detection](https://angular.dev/api/core/provideZonelessChangeDetection) was introduced as experimental in v18, became stable in v20, and is the default for new projects since v21.
+By using **zoneless Angular**, this entire class of bugs disappears completely.
+In a zoneless app, internal web component events no longer trigger global change detection runs because there is no `zone.js` intercepting them.
+
+## Conclusion
+
+We were able to identify and solve our performance issue through a focused investigation and with the help of the Angular DevTools profiler.
+While modern zoneless Angular would avoid this class of problems, it remains highly relevant for the many applications that still rely on `zone.js`.
+
+Mixing Angular and web components generally works very well in my experience, but as this case shows, it can sometimes require a deep dive into the underlying change detection mechanisms and the inner workings of the web components in question.
+
+<p class="muted">
+  <em>Note:</em> This article was originally written during my employment at
+  <a href="https://www.tngtech.com">TNG</a> and is republished here with permission.
+  The opinions are my own and TNG does not endorse this publication.
+</p>
