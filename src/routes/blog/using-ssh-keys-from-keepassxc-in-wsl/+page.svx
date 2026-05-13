@@ -1,0 +1,37 @@
+---
+title: >
+  Using SSH Keys from KeePassXC in WSL
+date: 2026-05-15
+updated: 2026-05-15
+description: A guide on how to share your KeePassXC SSH agent with WSL for a seamless development experience
+published: false
+---
+
+<script>
+  import TngFooter from '$lib/components/TngFooter.svelte';
+</script>
+
+# Using SSH Keys from KeePassXC in WSL
+
+In this post, I briefly want to show a way to use SSH keys managed by KeePassXC also in WSL.
+
+I setup SSH key management via KeePassXC on my Windows machine some time ago.
+It works really well for me: **Whenever I unlock my KeePass database, my SSH key becomes available and I can pull and push to Git.**
+
+However, this only works under Windows. **In WSL, the key is not available** since WSL uses completely separate versions of git and ssh that do not interact with their Windows counterparts.
+This was not a problem for me earlier since I mainly used WSL for Docker.
+However, more recently I also wanted to work with some Git repositories in WSL, so this became a problem.
+
+Turns out the solution is quite simple:
+
+```
+# Run this in WSL
+git config --global core.sshcommand "ssh.exe"
+```
+
+This instructs Git under WSL to use the Windows SSH executable.
+Counterintuitively, this actually works since WSL can run Windows executables (and your Windows SSH executable is already configured to use the SSH keys from KeePass).
+
+With this, you can use the SSH keys from KeePass also in WSL without additional friction!
+
+<TngFooter />
