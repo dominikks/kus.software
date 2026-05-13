@@ -3,7 +3,7 @@ title: >
   Web Components + Angular: Mixing Change Detection Strategies Has Its Pitfalls
 date: 2026-05-13
 updated: 2026-05-13
-description: Investigating a performance issue when using web components with Angular and how to solve it by moving components outside the Angular Zone.
+description: Investigating a performance issue when using web components with Angular and how to solve it by moving components outside the Angular Zone
 published: true
 ---
 
