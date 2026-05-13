@@ -1,0 +1,135 @@
+---
+title: >
+  The Web Platform Lacks a Standardized Range Slider
+date: 2026-05-16
+updated: 2026-05-16
+description: Inconsistencies and limitations of native HTML range sliders across different browsers
+published: false
+---
+
+<script>
+  import TngFooter from '$lib/components/TngFooter.svelte';
+</script>
+
+# The Web Platform Lacks a Standardized Range Slider
+
+In one of my projects, we were developing a component set for Angular.
+One requested component was a two-thumb range slider, i.e., something like this:
+
+<enhanced:img src="./range-slider-example.png" alt="A basic horizontal two-thumb range slider" />
+
+Naturally, it should be accessible and support keyboard navigation.
+
+When starting out on this user story, I naively thought "it's a common use case, **how hard can it be**".
+
+## Approaches
+
+After some research, it seems that the web platform itself _does not natively support_ this kind of slider, i.e., there is no multi-thumb range input or anything comparable.
+Instead, we must build it ourselves.
+
+I looked at other component libraries for inspiration on how to structure this component and found various approaches.
+
+### Angular Material
+
+The [Angular Material slider](https://material.angular.io/components/slider/examples#slider-range) uses two `<input type="range" />` that are side-by-side within the slider and meet exactly in the middle between the two drag handles.
+This is a rough visualization:
+
+<enhanced:img src="./angular-material-split-inputs.png" alt="A range slider with two colored overlays highlighting how the two underlying inputs are split side-by-side, meeting in the center between the thumbs" />
+
+However, as soon as you click on one of the thumbs, the associated input changes its size to exactly the available drag range:
+
+<enhanced:img src="./angular-material-resized-input.png" alt="The same range slider after clicking a thumb, showing the associated input resized to cover only the available drag range" />
+
+From what I can tell by the over 1000 lines of code that belong to [Material's slider implementation](https://github.com/angular/components/tree/1aa8512ebef7fd9bbc849383a2d642dddb69ce16/src/material/slider), the user interacts directly with the underlying inputs, which is the reason why they need to change size when clicked.
+
+### Material UI
+
+The [Material UI range slider](https://mui.com/material-ui/react-slider/#range-slider) also uses two inputs, but does not have users interact with them directly.
+Instead, they are children of their corresponding thumb element.
+
+<enhanced:img src="./material-ui-range-slider.png" alt="The Material UI two-thumb range slider" />
+
+The structure looks roughly like this:
+
+```html
+<span>
+  <span class="MuiSlider-thumb">
+    <input
+      type="range"
+      aria-orientation="horizontal"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="20"
+      ...
+    />
+  </span>
+  <span class="MuiSlider-thumb">
+    <input
+      type="range"
+      aria-orientation="horizontal"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="70"
+      ...
+    />
+  </span>
+</span>
+```
+
+Here, the user seemingly does not interact with the inputs directly, the interactions are instead handled by Javascript.
+
+### UI5
+
+UI5 uses an entirely [different approach](https://ui5.github.io/webcomponents/components/RangeSlider/).
+They built their slider completely out of divs, without any inputs:
+
+<enhanced:img src="./ui5-range-slider.png" alt="The UI5 two-thumb range slider" />
+
+The simplified structure looks roughly like this:
+
+```html
+<div>
+  <div class="slider-track"></div>
+  <div
+    class="slider-handle"
+    role="slider"
+    aria-orientation="horizontal"
+    tabindex="0"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="30"
+    ...
+  ></div>
+  <div
+    class="slider-handle"
+    role="slider"
+    aria-orientation="horizontal"
+    tabindex="0"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="70"
+    ...
+  ></div>
+</div>
+```
+
+As there are no inputs, I assume the interactions are also entirely done in Javascript.
+
+### Web Accessibility Initiative (WAI)
+
+The WAI has a [pattern for multi thumb sliders](https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/) as well as an [associated example](https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/examples/slider-multithumb/).
+According to the pattern, the thumbs need to have `role="slider"`, be focusable, and have certain aria properties (`aria-valuenow`, `aria-valuemin`, ...).
+The example uses SVG instead of HTML, but otherwise looks similar to the UI5 implementation.
+
+However, there are warnings on both pages that this pattern may not work for users of touch-based assistive technologies.
+
+## Conclusion
+
+My detour into this little research rabbit hole has shown that there seems to be no standard approach to multi-thumb range sliders on the web.
+This not only makes it harder for developers, but might also complicate life for users of assistive technologies as every implementation has a different structure.
+
+Considering that range sliders are quite a common use case (think online shops, travel booking sites, ...), the lack of a standard seems especially surprising to me.
+There is, however, an active effort within the [Open UI community](https://open-ui.org/components/enhanced-range-input.explainer/) to standardize a `&lt;rangegroup&gt;` element that would wrap multiple `&lt;input type="range"&gt;` elements into a unified multi-thumb slider.
+The proposal is still in the early stages though and has not shipped in any browser, so we will be stuck implementing custom variants for a while longer.
+
+<TngFooter />
