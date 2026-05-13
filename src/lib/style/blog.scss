@@ -123,8 +123,4 @@
       font-weight: 500;
     }
   }
-
-  .muted {
-    @include text-meta(13px, 400);
-  }
 }

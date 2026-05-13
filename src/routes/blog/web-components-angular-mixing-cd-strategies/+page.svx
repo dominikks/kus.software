@@ -7,6 +7,10 @@ description: Investigating a performance issue when using web components with An
 published: true
 ---
 
+<script>
+  import TngFooter from '$lib/components/TngFooter.svelte';
+</script>
+
 # Web Components + Angular: Mixing Change Detection Strategies Has Its Pitfalls
 
 > TL;DR: If you use web components inside Angular with `zone.js`, their internal event listeners can trigger excessive change detection. Moving them outside the Angular Zone or adopting zoneless Angular can fix it.
@@ -84,8 +88,4 @@ While modern zoneless Angular would avoid this class of problems, it remains hig
 
 Mixing Angular and web components generally works very well in my experience, but as this case shows, it can sometimes require a deep dive into the underlying change detection mechanisms and the inner workings of the web components in question.
 
-<p class="muted">
-  <em>Note:</em> This article was originally written during my employment at
-  <a href="https://www.tngtech.com">TNG</a> and is republished here with permission.
-  The opinions are my own and TNG does not endorse this publication.
-</p>
+<TngFooter />
