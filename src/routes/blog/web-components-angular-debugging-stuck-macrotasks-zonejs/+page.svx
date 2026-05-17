@@ -4,7 +4,7 @@ title: >
 date: 2026-05-17
 updated: 2026-05-17
 description: How to instrument zone.js to track pending tasks and find performance bottlenecks
-published: false
+published: true
 ---
 
 <script>
