@@ -1,10 +1,10 @@
 ---
 title: >
   The Web Platform Lacks a Standardized Range Slider
-date: 2026-05-16
-updated: 2026-05-16
+date: 2026-06-16
+updated: 2026-06-16
 description: Inconsistencies and limitations of native HTML range sliders across different browsers
-published: false
+published: true
 ---
 
 <script>
