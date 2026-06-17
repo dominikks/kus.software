@@ -4,6 +4,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    assignees:
+      - 'dominikks'
     ignore:
       - dependency-name: '@types/node'
         update-types:
@@ -42,6 +44,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    assignees:
+      - 'dominikks'
     groups:
       github-actions:
         patterns:
