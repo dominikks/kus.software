@@ -1,10 +1,10 @@
 ---
 title: >
   Using SSH Keys from KeePassXC in WSL
-date: 2026-05-15
-updated: 2026-05-15
+date: 2026-06-21
+updated: 2026-06-21
 description: A guide on how to share your KeePassXC SSH agent with WSL for a seamless development experience
-published: false
+published: true
 ---
 
 <script>
