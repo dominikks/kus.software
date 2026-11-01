@@ -29,6 +29,6 @@ export default [
     },
   },
   {
-    ignores: ['.svelte-kit', 'build'],
+    ignores: ['.svelte-kit', 'build', 'playwright-report', 'test-results'],
   },
 ];

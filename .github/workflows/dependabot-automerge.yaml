@@ -1,0 +1,65 @@
+name: Dependabot auto-merge
+
+on:
+  workflow_run:
+    workflows: ['Build and deploy site']
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: dependabot-auto-merge
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    if: >-
+      vars.DEPENDABOT_AUTOMERGE_ENABLED == 'true' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Never check out or execute PR code with this workflow's write token.
+      - name: Enable auto-merge for the validated Dependabot commit
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        env:
+          GH_TOKEN: ${{ secrets.DEPENDABOT_MERGE_TOKEN }}
+        with:
+          script: |
+            if (!process.env.GH_TOKEN) {
+              throw new Error('Configure DEPENDABOT_MERGE_TOKEN so merges trigger main-branch deployment.');
+            }
+            const { owner, repo } = context.repo;
+            const run = context.payload.workflow_run;
+            const { data: repository } = await github.rest.repos.get({ owner, repo });
+            const { data: rules } = await github.request(
+              'GET /repos/{owner}/{repo}/rules/branches/{branch}',
+              { owner, repo, branch: repository.default_branch }
+            );
+            const protectedBuild = rules.some(rule =>
+              rule.type === 'required_status_checks' &&
+              rule.parameters.strict_required_status_checks_policy &&
+              rule.parameters.required_status_checks.some(check => check.context === 'build')
+            );
+            if (!protectedBuild) {
+              throw new Error('Auto-merge requires an active branch rule requiring build and an up-to-date branch.');
+            }
+            const prs = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: 'open', base: repository.default_branch, per_page: 100
+            });
+            const pr = prs.find(pr =>
+              pr.user.login === 'dependabot[bot]' &&
+              pr.head.repo?.full_name === repository.full_name &&
+              pr.head.sha === run.head_sha
+            );
+            if (!pr || pr.draft) {
+              core.info('No open Dependabot PR matches this validated commit.');
+              return;
+            }
+            await exec.exec('gh', [
+              'pr', 'merge', String(pr.number), '--repo', `${owner}/${repo}`,
+              '--auto', '--squash', '--match-head-commit', pr.head.sha
+            ]);

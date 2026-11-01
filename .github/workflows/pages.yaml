@@ -2,23 +2,23 @@ name: Build and deploy site
 
 on:
   push:
+    branches: [main]
+  pull_request:
   # Allows to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 # Allow one concurrent run per branch; cancel in-progress runs on the same branch when a new commit arrives
 concurrency:
-  group: ${{ github.ref }}
+  group: pages-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -42,13 +42,33 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser tests
+        run: npm test
+
+      - name: Upload test diagnostics
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: browser-test-results
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+
       - name: Upload artifact
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v5
         with:
           path: ./build
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
