@@ -27,11 +27,12 @@ Dependabot checks npm dependencies and GitHub Actions weekly.
 The Dependabot auto-merge workflow requests native GitHub squash merging for successfully validated updates, including major versions.
 It verifies the PR author, repository, validated commit, and required branch checks.
 GitHub enforces branch rules when merging.
+Conflict-free updates with passing checks are eligible even when their branches are behind `main`.
 
 Required repository configuration:
 
 - Enable auto-merge and squash merging.
-- Require the GitHub Actions `build` check and up-to-date branches in the active `main` ruleset.
+- Require the GitHub Actions `build` check in the active `main` ruleset, with **Require branches to be up to date before merging** turned off.
 - Configure review requirements to permit unattended Dependabot merges.
 - Set Actions secret `DEPENDABOT_MERGE_TOKEN` to a fine-grained personal access token scoped to this repository with Contents and Pull requests read/write permissions.
   This token allows merged commits to trigger deployment; manage its expiration and rotation.

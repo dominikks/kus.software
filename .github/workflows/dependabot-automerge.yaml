@@ -40,11 +40,10 @@ jobs:
             );
             const protectedBuild = rules.some(rule =>
               rule.type === 'required_status_checks' &&
-              rule.parameters.strict_required_status_checks_policy &&
               rule.parameters.required_status_checks.some(check => check.context === 'build')
             );
             if (!protectedBuild) {
-              throw new Error('Auto-merge requires an active branch rule requiring build and an up-to-date branch.');
+              throw new Error('Auto-merge requires an active branch rule requiring build.');
             }
             const prs = await github.paginate(github.rest.pulls.list, {
               owner, repo, state: 'open', base: repository.default_branch, per_page: 100
