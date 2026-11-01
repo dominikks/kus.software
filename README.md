@@ -4,47 +4,37 @@ My personal homepage
 
 ## Validation
 
-Run `npm ci`, `npx playwright install --with-deps chromium`, `npm run lint`, `npm run check`, `npm run build`, and `npm test`.
-The browser tests serve the exact `build/` Pages artifact on desktop and mobile, rather than Svelte's intermediate preview output.
-They discover articles from the source tree automatically, so adding an article does not require writing another test.
-Checks cover article rendering, images, navigation, metadata, sitemap membership, the homepage, and the imprint page.
-CI retains reports, screenshots, and traces on failure.
-Tests stub the external Matomo tracker to avoid recording test visits or depending on analytics availability.
+```sh
+npm ci
+npx playwright install --with-deps chromium
+npm run lint
+npm run check
+npm run build
+npm test
+```
+
+Playwright serves the `build/` Pages artifact and checks the homepage, automatically discovered articles, images, navigation, metadata, sitemap, and imprint on desktop and mobile.
+Tests stub Matomo tracking, and CI retains reports, screenshots, and traces on failure.
+
+## Deployment
+
+Pull requests run lint, type checks, the production build, and browser tests.
+Successful main-branch builds deploy to GitHub Pages.
 
 ## Automatic dependency maintenance
 
 Dependabot checks npm dependencies and GitHub Actions weekly.
-All update levels, including major updates, are eligible for automatic squash merging after validation.
-There is no automatic approval or branch-rule bypass.
+The Dependabot auto-merge workflow requests native GitHub squash merging for successfully validated updates, including major versions.
+It verifies the PR author, repository, validated commit, and required branch checks.
+GitHub enforces branch rules when merging.
 
-The Dependabot auto-merge workflow starts responding to successful PR validation once this change is merged.
-Before merging this infrastructure, update the active `main` ruleset to require the `build` status check from GitHub Actions and require branches to be up to date.
-Add repository Actions secret `DEPENDABOT_MERGE_TOKEN`: a fine-grained personal access token scoped only to this repository, with Contents and Pull requests read/write permissions.
-Unlike the built-in `GITHUB_TOKEN`, this token allows the merge's push event to trigger the deployment workflow.
-Manage its expiration and rotation, and do not grant it branch-rule bypass permissions.
-Keep required human approvals off for unattended Dependabot updates, keep repository auto-merge enabled, and allow squash merges.
-The merge workflow refuses to proceed without the required-check and up-to-date rules.
-Test this setup on a Dependabot PR before enabling it broadly.
-Existing PRs need a fresh validation run after this infrastructure lands.
-To pause new auto-merge requests, open Actions, select Dependabot auto-merge, and choose Disable workflow.
-Disabling the workflow does not cancel auto-merge already enabled on individual PRs; disable that in each PR's merge box if needed.
+Required repository configuration:
 
-The privileged merge workflow runs only after successful PR validation, never checks out PR code, verifies the Dependabot author and same-repository branch, and matches the validated head commit.
-GitHub enforces the required checks again when merging.
-Tests and builds use read-only repository permissions; only the main-branch deployment job receives Pages permissions.
-The merge token is available only to the trusted merge job.
-Successful main-branch builds deploy to GitHub Pages as before.
-Dependency updates can still change behavior that these checks do not cover.
+- Enable auto-merge and squash merging.
+- Require the GitHub Actions `build` check and up-to-date branches in the active `main` ruleset.
+- Configure review requirements to permit unattended Dependabot merges.
+- Set Actions secret `DEPENDABOT_MERGE_TOKEN` to a fine-grained personal access token scoped to this repository with Contents and Pull requests read/write permissions.
+  This token allows merged commits to trigger deployment; manage its expiration and rotation.
 
-Failed updates remain open and do not merge.
-Enable GitHub Actions failure notifications to receive failures.
-This setup does not repair failures, verify the live deployment, or roll back automatically.
-Copilot cloud Automations currently require a private or internal repository, so unattended AI repairs are not provisioned for this public repository.
-Agent Merge is a separate native option for repairing failed Actions workflows and merge conflicts on a PR using Watch and fix.
-Its documented limitations exclude forks and stacked PRs, but do not exclude public repositories or Dependabot-authored PRs.
-It requires a paid Copilot plan, applicable Copilot permissions, and the repository's Enable automations Copilot policy.
-The automatic-enablement preference applies to PRs the enabling user creates, so it does not establish automatic enrollment of Dependabot PRs.
-Agent Merge does not enable auto-merge, and GitHub recommends reviewing its fixes.
-This repository does not automatically enroll PRs in Agent Merge.
-Incompatible upstream upgrades may need to wait for compatible releases rather than forcing installation or weakening checks.
-The Node.js runtime remains on version 24, with matching `@types/node` major updates excluded as before.
+To pause new merge requests, select **Actions → Dependabot auto-merge → Disable workflow**.
+To cancel a pending PR auto-merge, use **Disable auto-merge** in that PR's merge box.
