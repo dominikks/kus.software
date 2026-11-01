@@ -17,8 +17,8 @@ Dependabot checks npm dependencies and GitHub Actions weekly.
 All update levels, including major updates, are eligible for automatic squash merging after validation.
 There is no automatic approval or branch-rule bypass.
 
-Auto-merge is disabled until repository variable `DEPENDABOT_AUTOMERGE_ENABLED` is set to `true`.
-Before enabling it, update the active `main` ruleset to require the `build` status check from GitHub Actions and require branches to be up to date.
+The Dependabot auto-merge workflow starts responding to successful PR validation once this change is merged.
+Before merging this infrastructure, update the active `main` ruleset to require the `build` status check from GitHub Actions and require branches to be up to date.
 Add repository Actions secret `DEPENDABOT_MERGE_TOKEN`: a fine-grained personal access token scoped only to this repository, with Contents and Pull requests read/write permissions.
 Unlike the built-in `GITHUB_TOKEN`, this token allows the merge's push event to trigger the deployment workflow.
 Manage its expiration and rotation, and do not grant it branch-rule bypass permissions.
@@ -26,6 +26,8 @@ Keep required human approvals off for unattended Dependabot updates, keep reposi
 The merge workflow refuses to proceed without the required-check and up-to-date rules.
 Test this setup on a Dependabot PR before enabling it broadly.
 Existing PRs need a fresh validation run after this infrastructure lands.
+To pause new auto-merge requests, open Actions, select Dependabot auto-merge, and choose Disable workflow.
+Disabling the workflow does not cancel auto-merge already enabled on individual PRs; disable that in each PR's merge box if needed.
 
 The privileged merge workflow runs only after successful PR validation, never checks out PR code, verifies the Dependabot author and same-repository branch, and matches the validated head commit.
 GitHub enforces the required checks again when merging.
@@ -38,5 +40,11 @@ Failed updates remain open and do not merge.
 Enable GitHub Actions failure notifications to receive failures.
 This setup does not repair failures, verify the live deployment, or roll back automatically.
 Copilot cloud Automations currently require a private or internal repository, so unattended AI repairs are not provisioned for this public repository.
+Agent Merge is a separate native option for repairing failed Actions workflows and merge conflicts on a PR using Watch and fix.
+Its documented limitations exclude forks and stacked PRs, but do not exclude public repositories or Dependabot-authored PRs.
+It requires a paid Copilot plan, applicable Copilot permissions, and the repository's Enable automations Copilot policy.
+The automatic-enablement preference applies to PRs the enabling user creates, so it does not establish automatic enrollment of Dependabot PRs.
+Agent Merge does not enable auto-merge, and GitHub recommends reviewing its fixes.
+This repository does not automatically enroll PRs in Agent Merge.
 Incompatible upstream upgrades may need to wait for compatible releases rather than forcing installation or weakening checks.
 The Node.js runtime remains on version 24, with matching `@types/node` major updates excluded as before.
