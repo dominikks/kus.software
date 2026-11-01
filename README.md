@@ -27,6 +27,7 @@ Dependabot checks npm dependencies and GitHub Actions weekly.
 The Dependabot auto-merge workflow requests native GitHub squash merging for successfully validated updates, including major versions.
 It verifies the PR author, repository, validated commit, and required branch checks.
 GitHub enforces branch rules when merging.
+Failed validation or auto-merge assigns the PR to `dominikks`.
 
 Required repository configuration:
 
