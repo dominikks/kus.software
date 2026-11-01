@@ -5,7 +5,7 @@
 
   <h1 class="profile-name">Dominik Kus</h1>
   <p class="profile-description">
-    I am a <span class="bold">Software Consultant</span> and Computer Scientist based in Germany.
+    I am a <span class="bold">Software Engineer</span> based in Dublin.
   </p>
 
   <div class="socials">

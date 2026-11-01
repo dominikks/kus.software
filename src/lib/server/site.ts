@@ -2,8 +2,8 @@ import type { Seo } from '$lib/models/seo';
 
 export const siteConfig = {
   name: 'Dominik Kus',
-  title: 'Dominik Kus - Computer Scientist',
-  description: 'I am Dominik Kus, a computer scientist and software engineer based in Germany.',
+  title: 'Dominik Kus - Software Engineer',
+  description: 'I am Dominik Kus, a software engineer based in Dublin.',
   url: 'https://kus.software',
 };
 
