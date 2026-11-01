@@ -14,7 +14,7 @@ npm test
 ```
 
 Playwright serves the `build/` Pages artifact and checks the homepage, automatically discovered articles, images, navigation, metadata, sitemap, and imprint on desktop and mobile.
-Tests stub Matomo tracking, and CI retains reports, screenshots, and traces on failure.
+CI retains reports, screenshots, and traces on failure.
 
 ## Deployment
 
