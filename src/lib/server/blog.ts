@@ -1,7 +1,7 @@
-import type { Pathname } from '$app/types';
-import type { BlogPost } from '$lib/models/blog-post';
-import type { Seo } from '$lib/models/seo';
-import { siteConfig, toAbsoluteUrl } from '$lib/server/site';
+import type { Path } from '$app/types';
+import type { BlogPost } from '#lib/models/blog-post.ts';
+import type { Seo } from '#lib/models/seo.ts';
+import { siteConfig, toAbsoluteUrl } from '#lib/server/site.ts';
 
 type BlogFrontmatter = {
   title: string;
@@ -25,7 +25,7 @@ const blogPosts = Object.entries(blogModules)
 // Extract blog post metadata
 function createBlogPost(filePath: string, module: MarkdownModule): BlogPost {
   const slug = extractSlug(filePath);
-  const url = `/blog/${slug}` as Pathname;
+  const url = `blog/${slug}` as Path;
   const metadata = parseFrontmatter(filePath, module.metadata);
 
   return {
@@ -105,8 +105,9 @@ export function getPublishedBlogPosts(): BlogPost[] {
 }
 
 export function getBlogPostByPath(pathname: string): BlogPost | undefined {
-  const normalizedPath =
-    pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname;
+  const normalizedPath = (
+    pathname.endsWith('/') && pathname !== '/' ? pathname.slice(0, -1) : pathname
+  ).replace(/^\//, '');
 
   return blogPosts.find((post) => post.url === normalizedPath);
 }

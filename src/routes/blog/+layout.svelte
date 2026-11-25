@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Footer from '$lib/components/Footer.svelte';
-  import TopNav from '$lib/components/TopNav.svelte';
+  import Footer from '#lib/components/Footer.svelte';
+  import TopNav from '#lib/components/TopNav.svelte';
 
-  import '$lib/style/blog.scss';
+  import '../../lib/style/blog.scss';
 </script>
 
 <TopNav />

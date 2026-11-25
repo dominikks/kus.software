@@ -2,7 +2,7 @@
   import { page } from '$app/state';
 
   import 'ress/ress.css';
-  import '$lib/style/global.scss';
+  import '../lib/style/global.scss';
 </script>
 
 <svelte:head>

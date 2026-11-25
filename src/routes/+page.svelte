@@ -1,8 +1,8 @@
 <script lang="ts">
-  import BlogSection from '$lib/components/BlogSection.svelte';
-  import ProfileSection from '$lib/components/ProfileSection.svelte';
+  import BlogSection from '#lib/components/BlogSection.svelte';
+  import ProfileSection from '#lib/components/ProfileSection.svelte';
   import type { PageData } from './$types';
-  import Footer from '$lib/components/Footer.svelte';
+  import Footer from '#lib/components/Footer.svelte';
 
   export let data: PageData;
 </script>

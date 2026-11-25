@@ -1,4 +1,4 @@
-import type { Seo } from '$lib/models/seo';
+import type { Seo } from '#lib/models/seo.ts';
 
 export const siteConfig = {
   name: 'Dominik Kus',

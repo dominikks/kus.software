@@ -8,14 +8,14 @@ published: true
 ---
 
 <script>
-  import TngFooter from '$lib/components/TngFooter.svelte';
-  import { base } from '$app/paths';
+  import TngFooter from '#lib/components/TngFooter.svelte';
+  import { resolve } from '$app/paths';
 </script>
 
 # Web Components + Angular: Debugging Stuck Macrotasks in Zone.js
 
 In one of my projects, we were developing a UI component set for Angular using a web component library as a building block.
-While this works well for the most part, there are some traps to fall into in such a setup (see also my [previous blog post]({base}/blog/web-components-angular-mixing-cd-strategies) on the topic).
+While this works well for the most part, there are some traps to fall into in such a setup (see also my [previous blog post]({resolve('blog/web-components-angular-mixing-cd-strategies')}) on the topic).
 
 This post describes one such issue we faced and shows how we **instrumented `zone.js` to be able to track pending tasks and their source**.
 While zoneless [became the standard in Angular v21](https://angular.dev/guide/zoneless), many existing projects still rely on `zone.js`, making this technique relevant.
