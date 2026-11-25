@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { getBlogPostByPath, getBlogPostSeo } from '$lib/server/blog';
+import { getBlogPostByPath, getBlogPostSeo } from '#lib/server/blog.ts';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = ({ url }) => {

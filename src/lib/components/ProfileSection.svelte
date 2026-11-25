@@ -23,7 +23,7 @@
 </header>
 
 <style lang="scss">
-  @use '$lib/style/variables' as *;
+  @use '../style/variables' as *;
 
   .profile {
     display: flex;

@@ -8,7 +8,7 @@ published: true
 ---
 
 <script>
-  import TngFooter from '$lib/components/TngFooter.svelte';
+  import TngFooter from '#lib/components/TngFooter.svelte';
 </script>
 
 # The Web Platform Lacks a Standardized Range Slider

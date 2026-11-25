@@ -11,7 +11,7 @@
 </footer>
 
 <style lang="scss">
-  @use '$lib/style/variables' as *;
+  @use '../style/variables' as *;
 
   footer {
     border-top: 1px solid var(--border);

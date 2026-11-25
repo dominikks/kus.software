@@ -1,4 +1,4 @@
-import { getDefaultSeo, siteConfig } from '$lib/server/site';
+import { getDefaultSeo, siteConfig } from '#lib/server/site.ts';
 import type { LayoutServerLoad } from './$types';
 
 export const prerender = true;

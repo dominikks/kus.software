@@ -1,8 +1,8 @@
-import type { Pathname } from '$app/types';
+import type { Path } from '$app/types';
 
 export type BlogPost = {
   slug: string;
-  url: Pathname;
+  url: Path;
   absoluteUrl: string;
   title: string;
   date: string;

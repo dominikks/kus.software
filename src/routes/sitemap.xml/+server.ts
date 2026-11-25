@@ -1,5 +1,5 @@
-import { getPublishedBlogPosts } from '$lib/server/blog';
-import { toAbsoluteUrl } from '$lib/server/site';
+import { getPublishedBlogPosts } from '#lib/server/blog.ts';
+import { toAbsoluteUrl } from '#lib/server/site.ts';
 
 export const prerender = true;
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { resolve } from '$app/paths';
-  import type { BlogPost } from '$lib/models/blog-post';
+  import type { BlogPost } from '#lib/models/blog-post.ts';
 
   export let posts: BlogPost[];
 
@@ -29,7 +29,7 @@
 </section>
 
 <style lang="scss">
-  @use '$lib/style/variables' as *;
+  @use '../style/variables' as *;
 
   .blog {
     margin: 0 auto;

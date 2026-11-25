@@ -8,7 +8,7 @@ published: true
 ---
 
 <script>
-  import TngFooter from '$lib/components/TngFooter.svelte';
+  import TngFooter from '#lib/components/TngFooter.svelte';
 </script>
 
 # Using SSH Keys from KeePassXC in WSL
